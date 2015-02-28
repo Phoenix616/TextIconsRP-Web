@@ -1,4 +1,5 @@
-/* IconMapping for the WebChar page by Phoenix616
+/* IconMapping for TextIconsRP-Web by Phoenix616
+ * (https://github.com/Phoenix616/TextIconsRP-Web)
  * For the Custom Icon Text Resource Pack by WolfieMario
  * 
  * To add custom names, you must find the location corresponding to
@@ -12,11 +13,22 @@
  * If you want to add more fontsheets earlier than unicode_page_90,
  * change the value of unicodeOffsetHex accordingly (for example, to
  * start at unicode_page_8a, set unicodeOffset to 0x8a00).
+ *
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 function IconMapping() {
 this.unicodeOffset = 0x9000;
-this.characterNamesTest = new Array("wooden sword", "wooden pickaxe", "wooden shovel", "wooden axe", "wooden hoe");
 
 this.characterNames = new Array(
 	"wooden sword", "wooden pickaxe", "wooden shovel", "wooden axe", "wooden hoe",
