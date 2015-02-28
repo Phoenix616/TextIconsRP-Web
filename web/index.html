@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset=utf-8>
+		<title>Icon Text Resourcepack Converter!</title>
+		<link rel='shortcut icon' href="/../favicon.ico" type="image/x-icon" />
+		<style>
+			body {
+				color: black;
+				background-color: #AAA;
+			}
+			button {
+				cursor: pointer;
+			}
+			#content {
+				font-family: Lucida,Helvetica,sans-serif;
+				font-size: 16px;
+				font-weight: 500;
+				width: 490px;
+				margin-left: auto;
+				margin-right: auto;
+			}
+			#chars {
+				display: table;
+				width: 576px;
+			}
+			.entry {
+				cursor: pointer;
+			}
+			.entry:hover {
+				background-color: #DDD;
+			}
+			.entry > div {
+				display: table-cell;
+				padding: 2px;
+				vertical-align: middle;
+			}
+			.wide {
+				/*display: table-row;*/
+			}
+			.icons {
+				display: inline-block;
+			}
+			.icon {
+				/*width: 36px;*/
+			}
+			.icon-image {
+				height: 32px;
+				width: 32px;
+				background-size: 512px;
+			}
+			.break {
+				margin: 10px 2%;
+				height: 2px;
+				background: #555;
+				width: 96%;
+			}
+		</style>
+		<script src="IconMapping.js" type="text/javascript" charset="UTF-8"></script>
+		<script>
+			function selectText(el) {
+				if (typeof window.getSelection != "undefined" && typeof document.createRange != "undefined") {
+					var range = document.createRange();
+					range.selectNodeContents(el);
+					var sel = window.getSelection();
+					sel.removeAllRanges();
+					sel.addRange(range);
+				} else if (typeof document.selection != "undefined" && typeof document.body.createTextRange != "undefined") {
+					var textRange = document.body.createTextRange();
+					textRange.moveToElementText(el);
+					textRange.select();
+				}
+			}
+			
+			function copyPrompt(string) {
+				window.prompt("Copy via CTRL+C & ENTER", string);
+			}
+			
+		</script>
+	</head>
+	<body>
+		<div id="content">
+			<div id="note">
+				<a href="http://imgur.com/a/oHvbX">Minecraft Icon Font RP</a> by WolfieMario<br />
+				<span title="This isn't really a real viewer">Viewer (v0.1.2)</span> by <a href="https://github.com/Phoenix616">Phoenix616</a>
+			</div>
+			<div id="header">
+				<button onClick="mainList.toggleDisplay();">Toggle Display</button>
+			</div>
+			<div id="loading">Loading chars...</div>
+			<div id="chars"></div>
+		</div>
+		<script src="charweb.js" type="text/javascript" charset="UTF-8"></script>
+	</body>
+</html>
