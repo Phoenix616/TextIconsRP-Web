@@ -27,21 +27,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			body {
 				color: black;
 				background-color: #AAA;
+				overflow-y: scroll;
 			}
 			button {
 				cursor: pointer;
+			}
+			.hilight {
+				background: rgba(255, 255, 0, 0.7);
 			}
 			#content {
 				font-family: Lucida,Helvetica,sans-serif;
 				font-size: 16px;
 				font-weight: 500;
-				width: 490px;
+				width: 576px;
 				margin-left: auto;
 				margin-right: auto;
 			}
 			#chars {
 				display: table;
 				width: 576px;
+			}
+			#searchinput {
+				float: right; 
 			}
 			.entry {
 				cursor: pointer;
@@ -104,7 +111,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				<span title="This isn't really a real viewer">Viewer (v0.1.2)</span> by <a href="https://github.com/Phoenix616">Phoenix616</a>
 			</div>
 			<div id="header">
-				<button onClick="mainList.toggleDisplay();">Toggle Display</button>
+				<button id="togglebutton" onClick="mainList.toggleDisplay();">Toggle Display</button>
+				<input id="searchinput" onInput="mainList.search(this.value)" placeholder="Search"></input>
 			</div>
 			<div id="loading">Loading chars...</div>
 			<div id="chars"></div>
