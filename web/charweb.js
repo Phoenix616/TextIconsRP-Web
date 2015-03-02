@@ -78,19 +78,24 @@ IconList.prototype.setDisplay = function(display) {
 }
 
 IconList.prototype.search = function(string) {
-	if(string.length == 0) {
-		if(this.display != this.displaybefore)
-			this.setDisplay(this.displaybefore);
-		this.displaybefore = "";
-	} else if(string.length > 1) {
-		if(this.displaybefore.length == 0)
-			this.displaybefore = this.display;
-		this.setDisplay("wide");
-		for(var i = 0; i < this.entries.length; i++) {
-			this.entries[i].match(string);
+	if(typeof this.searchthread !== 'undefined')
+		clearTimeout(this.searchthread);
+	var list = this;
+	this.searchthread = setTimeout(function() {
+		if(string.length == 0) {
+			if(list.display != list.displaybefore)
+				list.setDisplay(list.displaybefore);
+			list.displaybefore = "";
+		} else {
+			if(list.displaybefore.length == 0)
+				list.displaybefore = list.display;
+			list.setDisplay("wide");
+			for(var i = 0; i < list.entries.length; i++) {
+				list.entries[i].match(string);
+			}
+			
 		}
-		
-	}
+	}, 400);
 }
 
 function IconEntry(names, charCode) {
@@ -120,8 +125,7 @@ IconEntry.prototype.match = function(string) {
 			display = "";
 			this.nameElement.innerHTML = this.names[i].replace(new RegExp( '(' + string + ')', 'gi' ), '<span class="hilight">$1</span>');
 		}
-	if(display.length > 0)
-		this.element.style.display = display;
+	this.element.style.display = display;
 }
  
 IconEntry.prototype.getIconPath = function() {
