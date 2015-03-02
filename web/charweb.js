@@ -82,7 +82,7 @@ IconList.prototype.search = function(string) {
 		if(this.display != this.displaybefore)
 			this.setDisplay(this.displaybefore);
 		this.displaybefore = "";
-	} else {
+	} else if(string.length > 1) {
 		if(this.displaybefore.length == 0)
 			this.displaybefore = this.display;
 		this.setDisplay("wide");
