@@ -24,36 +24,58 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		<title>Icon Text Resourcepack Converter!</title>
 		<link rel='shortcut icon' href="/../favicon.ico" type="image/x-icon" />
 		<style>
+			:root {
+				--font-color: black;
+				--link-color: cornflowerblue;
+				--background-color: #ddd;
+				--hilight-background: rgba(255, 255, 0, 0.7);
+				--hilight-color: var(--font-color);
+			}
+			@media (prefers-color-scheme: dark) {
+				:root {
+					--font-color: #D5D5D5;
+					--background-color: #16171A;
+					--hilight-background: rgba(255, 221, 0, 0.7);
+					--hilight-color: black;
+				}
+			}
 			body {
-				color: black;
-				background-color: #AAA;
+				color: var(--font-color);
+				background-color: var(--background-color);
 				overflow-y: scroll;
+			}
+			a {
+				color: var(--link-color);
 			}
 			button {
 				cursor: pointer;
 			}
 			.hilight {
-				background: rgba(255, 255, 0, 0.7);
+				color: var(--hilight-color);
+				background: var(--hilight-background);
 			}
 			#content {
 				font-family: Lucida,Helvetica,sans-serif;
 				font-size: 16px;
 				font-weight: 500;
-				width: 576px;
+				width: 640px;
 				margin-left: auto;
 				margin-right: auto;
 			}
 			#chars {
+				margin-top: 6px;
 				display: table;
-				width: 576px;
+				width: 640px;
 			}
 			#searchinput {
 				float: right; 
 			}
 			.entry {
 				cursor: pointer;
+				margin-left: 2px;
+				margin-right: 2px;
 			}
-			.entry:hover {
+			.entry:hover .icon {
 				background-color: #DDD;
 			}
 			.entry > div {
@@ -68,6 +90,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				display: inline-block;
 			}
 			.icon {
+				background-color: #aaa;
 				/*width: 36px;*/
 			}
 			.icon-image {
@@ -107,8 +130,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	<body>
 		<div id="content">
 			<div id="note">
-				<a href="http://imgur.com/a/oHvbX">Minecraft Icon Font RP</a> by WolfieMario<br />
-				<span title="This isn't really a real viewer">Viewer (v0.1.2)</span> by <a href="https://github.com/Phoenix616">Phoenix616</a>
+				<a href="https://wiki.phoenix616.dev/plugin:showitem:itemicons">Minecraft Icon Font RP</a> originally by WolfieMario<br />
+				<span title="This isn't really a real viewer">Viewer (v0.1.3)</span> by <a href="https://github.com/Phoenix616">Phoenix616</a>
 			</div>
 			<div id="header">
 				<button id="togglebutton" onClick="mainList.toggleDisplay();">Toggle Display</button>

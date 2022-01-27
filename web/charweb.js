@@ -27,8 +27,8 @@ var MAPPING = new IconMapping();
 var escape = false;
 
 window.onload = function() {
-	console.log('Loading Webinterface for WolfieMario\'s Text Icons Resource Pack...');
-	console.log('Copyright (C) 2015 Max Lee (https://github.com/Phoenix616/)');
+	console.log('Loading Webinterface for Text Icon Resource Packs based on WolfieMario\'s...');
+	console.log('Copyright (C) 2022 Max Lee (https://github.com/Phoenix616/)');
 	console.log('TextIconsRP-Web (https://github.com/Phoenix616/TextIconsRP-Web)');
 	document.body = document.body || document.getElementsByTagName('body')[0];
 	
@@ -109,13 +109,13 @@ function IconEntry(names, charCode) {
 	this.iconElement.classList.add("icon");
 	this.iconElement.appendChild(this.getIcon());
 	
-	this.hanElement = document.createElement("div");
-	this.hanElement.classList.add("han");
-	this.hanElement.innerHTML = this.getSymbol();
+	this.utf16Element = document.createElement("div");
+	this.utf16Element.classList.add("utf16");
+	this.utf16Element.innerHTML = this.getSymbol();
 	
 	this.nameElement = document.createElement("div");
 	this.nameElement.classList.add("name");
-	this.nameElement.innerHTML = this.names[0];
+	this.nameElement.innerHTML = this.names[0].replace("_", " ");
 }
 
 IconEntry.prototype.match = function(string) {
@@ -166,13 +166,13 @@ IconEntry.prototype.getElement = function(display) {
 		ele.appendChild(this.iconElement);
 		
 		if(display == "wide") {
-			ele.appendChild(this.hanElement);
-			ele.onclick = function() {selectText(this.getElementsByClassName('han')[0])};
+			ele.appendChild(this.utf16Element);
+			ele.onclick = function() {selectText(this.getElementsByClassName('utf16')[0])};
 			
 			ele.appendChild(this.nameElement);
 		} else {
 			ele.onclick = function(symbol) { return function() { copyPrompt(symbol); }; }(this.getSymbol());
-			ele.title = this.names[0] + " (Click to get char)";
+			ele.title = this.names[0].replace("_", " ") + " (Click to get char)";
 		}
 		
 		this.display = display;
