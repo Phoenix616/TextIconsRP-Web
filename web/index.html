@@ -121,8 +121,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				}
 			}
 			
-			function copyPrompt(string) {
-				window.prompt("Copy via CTRL+C & ENTER", string);
+			function copyPrompt(name, string) {
+				window.prompt("Copy " + name + " via CTRL+C & ENTER", string);
 			}
 			
 		</script>
@@ -131,10 +131,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		<div id="content">
 			<div id="note">
 				<a href="https://wiki.phoenix616.dev/plugin:showitem:itemicons">Minecraft Icon Font RP</a> originally by WolfieMario<br />
-				<span title="This isn't really a real viewer">Viewer (v0.1.3)</span> by <a href="https://github.com/Phoenix616">Phoenix616</a>
+				<span title="This isn't really a real viewer">Viewer (v0.1.4)</span> by <a href="https://phoenix616.dev">Phoenix616</a>
 			</div>
 			<div id="header">
 				<button id="togglebutton" onClick="mainList.toggleDisplay();">Toggle Display</button>
+				<select id="offsetselector" onChange="mainList.reload();">
+					<option value="0x9000">Original (Han Symbols)</option>
+					<option value="0xAC00">Chinese (Hangul Symbols)</option>
+					<!--<option value="custom">Custom</option> TODO: Custom support-->
+				</select>
 				<input id="searchinput" onInput="mainList.search(this.value)" placeholder="Search"></input>
 			</div>
 			<div id="loading">Loading chars...</div>

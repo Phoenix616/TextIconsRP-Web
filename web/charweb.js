@@ -41,18 +41,34 @@ window.onload = function() {
 
 function IconList(container, display) {
 	this.container = container;
-	this.entries = [];
 	this.displaybefore = "";
-	for(var i = 0; i < MAPPING.characterNames.length; i++) {
-		var entry = new IconEntry([MAPPING.characterNames[i]], MAPPING.unicodeOffset + i, display);
-		this.entries.push(entry);
-	}
-	this.load(display);
+	this.display = display;
+	this.build();
 }
 
-IconList.prototype.load = function(display) {
+IconList.prototype.build = function() {
+	this.entries = [];
+	var offsetSelector = document.getElementById("offsetselector");
+	this.offset = Number(offsetSelector.selectedOptions[0].value);
+	if (this.offset == "custom") {
+		// TODO: Custom support
+		this.offset = Number(offsetSelector.options[0].value);
+	}
+	for(var i = 0; i < MAPPING.characterNames.length; i++) {
+		var entry = new IconEntry([MAPPING.characterNames[i]], this.offset, i);
+		this.entries.push(entry);
+	}
+	this.load();
+}
+
+IconList.prototype.reload = function() {
+	this.container.innerHTML = "<div id=\"loading\">Loading chars...</div>";
+	mainList.build();
+}
+
+IconList.prototype.load = function() {
 	this.container.innerHTML = "";
-	this.setDisplay(display);
+	this.draw();
 }
 
 IconList.prototype.toggleDisplay = function() {
@@ -63,17 +79,21 @@ IconList.prototype.toggleDisplay = function() {
 }
 
 IconList.prototype.setDisplay = function(display) {
-	if(this.display != display) {
+	if (this.display != display) {
 		this.display = display;
-		this.container.innerHTML = "";
-		for(var i = 0; i < this.entries.length; i++) {
-			if(i != 0 && this.display == "icons" && i % 256 == 0) {
-				var breakEle = document.createElement("div");
-				breakEle.classList.add("break");
-				this.container.appendChild(breakEle);
-			}
-			this.container.appendChild(this.entries[i].getElement(this.display));
+		this.draw();
+	}
+}
+
+IconList.prototype.draw = function() {
+	this.container.innerHTML = "";
+	for(var i = 0; i < this.entries.length; i++) {
+		if(i != 0 && this.display == "icons" && i % 256 == 0) {
+			var breakEle = document.createElement("div");
+			breakEle.classList.add("break");
+			this.container.appendChild(breakEle);
 		}
+		this.container.appendChild(this.entries[i].getElement(this.display));
 	}
 }
 
@@ -98,10 +118,11 @@ IconList.prototype.search = function(string) {
 	}, 400);
 }
 
-function IconEntry(names, charCode) {
+function IconEntry(names, offset, charCode) {
 	this.names = names;
+	this.offset = offset;
 	this.charCode = charCode;
-	
+
 	this.display;
 	this.element;
 	
@@ -129,9 +150,9 @@ IconEntry.prototype.match = function(string) {
 }
  
 IconEntry.prototype.getIconPath = function() {
-	if((this.charCode - MAPPING.unicodeOffset) < 0)
+	if(this.charCode < 0)
 		return null;
-	var hex = this.charCode.toString(16);
+	var hex = (MAPPING.unicodeOffset + this.charCode).toString(16);
 	return SPRITE_URL + SPRITE_PREFIX + hex.slice(0,-2) + SPRITE_SUFFIX;
 };
 
@@ -154,7 +175,11 @@ IconEntry.prototype.getIcon = function() {
 };
 
 IconEntry.prototype.getSymbol = function() {
-	return String.fromCharCode(this.charCode);
+	return String.fromCharCode(this.offset + this.charCode);
+}
+
+IconEntry.prototype.getName = function () {
+	return this.names[0].replaceAll('_', ' ');
 }
 
 IconEntry.prototype.getElement = function(display) {
@@ -171,8 +196,8 @@ IconEntry.prototype.getElement = function(display) {
 			
 			ele.appendChild(this.nameElement);
 		} else {
-			ele.onclick = function(symbol) { return function() { copyPrompt(symbol); }; }(this.getSymbol());
-			ele.title = this.names[0].replace("_", " ") + " (Click to get char)";
+			ele.onclick = function(name, symbol) { return function() { copyPrompt(name, symbol); }; }(this.getName(), this.getSymbol());
+			ele.title = this.getName() + " (Click to get char)";
 		}
 		
 		this.display = display;
